@@ -11,56 +11,51 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Campanha implements Serializable{
+public class Estado implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String descricao;
 	
-	//Associação 1 para *
-	@OneToMany(mappedBy = "campanha")
-	private List<Telesena> telesenas = new ArrayList<>();
+	//Associação 1 pra *
+	@OneToMany(mappedBy = "estado")
+	private List<Cidade> cidades = new ArrayList<>();
 	
-	public Campanha() {
 	
+	public Estado() {
+		
 	}
 
-
-	public Campanha(Integer id, String nome) {
+	public Estado(Integer id, String descricao) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.descricao = descricao;
 	}
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
+	public List<Cidade> getCidades() {
+		return cidades;
 	}
 
-	public List<Telesena> getTelesenas() {
-		return telesenas;
-	}
-
-
-	public void setTelesenas(List<Telesena> telesenas) {
-		this.telesenas = telesenas;
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
 	}
 
 	@Override
@@ -71,7 +66,6 @@ public class Campanha implements Serializable{
 		return result;
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -80,7 +74,7 @@ public class Campanha implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Campanha other = (Campanha) obj;
+		Estado other = (Estado) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -91,5 +85,4 @@ public class Campanha implements Serializable{
 
 	
 	
-
 }
