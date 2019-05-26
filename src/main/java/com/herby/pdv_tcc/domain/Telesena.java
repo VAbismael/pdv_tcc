@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Telesena implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -17,9 +19,11 @@ public class Telesena implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String numero;
+	private Integer qtd;
 	private double preco;
 	
 	//Associação * para 1
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="campanha_id")
 	private Campanha campanha;
@@ -29,11 +33,13 @@ public class Telesena implements Serializable{
 		
 	}
 
-	public Telesena(Integer id, String numero, double preco) {
+	public Telesena(Integer id, String numero, double preco, Integer qtd,Campanha campanha) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.preco = preco;
+		this.qtd = qtd;
+		this.campanha = campanha;			
 	}
 
 	public Integer getId() {
@@ -67,6 +73,14 @@ public class Telesena implements Serializable{
 	public void setCampanha(Campanha campanha) {
 		this.campanha = campanha;
 	}
+	
+	public Integer getQtd() {
+		return qtd;
+	}
+
+	public void setQtd(Integer qtd) {
+		this.qtd = qtd;
+	}
 
 	@Override
 	public int hashCode() {
@@ -92,8 +106,6 @@ public class Telesena implements Serializable{
 			return false;
 		return true;
 	}
-
-
 
 
 	

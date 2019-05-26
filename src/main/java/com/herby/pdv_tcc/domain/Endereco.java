@@ -32,13 +32,14 @@ public class Endereco implements Serializable{
 		
 	}
 
-	public Endereco(Integer id, String lugradouro, String complemento, String bairro, String cep, Cidade cidade) {
+	public Endereco(Integer id, String lugradouro, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
 		super();
 		this.id = id;
 		this.lugradouro = lugradouro;
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
+		this.cliente = cliente;
 		this.setCidade(cidade);
 	}
 
