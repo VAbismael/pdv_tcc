@@ -1,5 +1,6 @@
 package com.herby.pdv_tcc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,19 @@ import com.herby.pdv_tcc.domain.Cidade;
 import com.herby.pdv_tcc.domain.Cliente;
 import com.herby.pdv_tcc.domain.Endereco;
 import com.herby.pdv_tcc.domain.Estado;
+import com.herby.pdv_tcc.domain.Pagamento;
+import com.herby.pdv_tcc.domain.PagamentoComBoleto;
+import com.herby.pdv_tcc.domain.Pedido;
 import com.herby.pdv_tcc.domain.Telesena;
+import com.herby.pdv_tcc.domain.enums.EstadoPagamento;
 import com.herby.pdv_tcc.domain.enums.TipoCliente;
 import com.herby.pdv_tcc.repositories.CampanhaRepository;
 import com.herby.pdv_tcc.repositories.CidadeRepository;
 import com.herby.pdv_tcc.repositories.ClienteRepository;
 import com.herby.pdv_tcc.repositories.EnderecoRepository;
 import com.herby.pdv_tcc.repositories.EstadoRepository;
+import com.herby.pdv_tcc.repositories.PagamentoRepository;
+import com.herby.pdv_tcc.repositories.PedidoRepository;
 import com.herby.pdv_tcc.repositories.TelesenaRepository;
 
 @SpringBootApplication
@@ -41,6 +48,12 @@ public class PdvTccApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PdvTccApplication.class, args);
@@ -85,7 +98,22 @@ public class PdvTccApplication implements CommandLineRunner{
 		clienteRepository.saveAll(Arrays.asList(cli1));		
 		enderecoRepository.saveAll(Arrays.asList(end1, end2));
 		
-
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2019 10:22"), cli1, end1);
+		Pedido ped2 = new Pedido(null, sdf.parse("30/10/2019 12:22"), cli1, end2);
+		
+		Pagamento pag1 = new PagamentoComBoleto(null, EstadoPagamento.QUITADO, ped1, sdf.parse("05/10/2019 14:52"), sdf.parse("10/10/2019 00:00"));
+		ped1.setPagamento(pag1);
+		
+		Pagamento pag2 = new PagamentoComBoleto(null, EstadoPagamento.PEDENTE, ped2, null, sdf.parse("10/11/2019 00:00"));
+		ped2.setPagamento(pag2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
 		
 		
 		
