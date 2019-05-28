@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Campanha implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -21,8 +19,7 @@ public class Campanha implements Serializable{
 	private Integer id;
 	private String nome;
 	
-	//Associação 1 para *
-	@JsonManagedReference
+	//Associação 1 para *	
 	@OneToMany(mappedBy = "campanha")
 	private List<Telesena> telesenas = new ArrayList<>();
 	

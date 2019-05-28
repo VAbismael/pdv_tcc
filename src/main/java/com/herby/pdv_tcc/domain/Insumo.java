@@ -14,7 +14,7 @@ public class Insumo extends Produto{
 	}
 	
 	
-	public Insumo(Integer id, Double preco, String descricao) {
+	public Insumo(Integer id, double preco, String descricao) {
 		super(id, preco);
 		this.descricao = descricao;
 	}

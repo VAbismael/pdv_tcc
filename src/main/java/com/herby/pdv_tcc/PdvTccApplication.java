@@ -13,9 +13,12 @@ import com.herby.pdv_tcc.domain.Cidade;
 import com.herby.pdv_tcc.domain.Cliente;
 import com.herby.pdv_tcc.domain.Endereco;
 import com.herby.pdv_tcc.domain.Estado;
+import com.herby.pdv_tcc.domain.Insumo;
+import com.herby.pdv_tcc.domain.ItemPedido;
 import com.herby.pdv_tcc.domain.Pagamento;
 import com.herby.pdv_tcc.domain.PagamentoComBoleto;
 import com.herby.pdv_tcc.domain.Pedido;
+import com.herby.pdv_tcc.domain.Produto;
 import com.herby.pdv_tcc.domain.Telesena;
 import com.herby.pdv_tcc.domain.enums.EstadoPagamento;
 import com.herby.pdv_tcc.domain.enums.TipoCliente;
@@ -24,9 +27,10 @@ import com.herby.pdv_tcc.repositories.CidadeRepository;
 import com.herby.pdv_tcc.repositories.ClienteRepository;
 import com.herby.pdv_tcc.repositories.EnderecoRepository;
 import com.herby.pdv_tcc.repositories.EstadoRepository;
+import com.herby.pdv_tcc.repositories.ItemPedidoRepository;
 import com.herby.pdv_tcc.repositories.PagamentoRepository;
 import com.herby.pdv_tcc.repositories.PedidoRepository;
-import com.herby.pdv_tcc.repositories.TelesenaRepository;
+import com.herby.pdv_tcc.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class PdvTccApplication implements CommandLineRunner{
@@ -35,7 +39,7 @@ public class PdvTccApplication implements CommandLineRunner{
 	private CampanhaRepository campanhaRepository;
 	
 	@Autowired
-	private TelesenaRepository telesenaRepository;
+	private ProdutoRepository produtoRepository;
 	
 	@Autowired
 	private EstadoRepository estadoRepository;
@@ -55,6 +59,9 @@ public class PdvTccApplication implements CommandLineRunner{
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
 	
+	@Autowired
+	private ItemPedidoRepository itemPrdidoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(PdvTccApplication.class, args);
 	}
@@ -68,9 +75,10 @@ public class PdvTccApplication implements CommandLineRunner{
 		
 		campanhaRepository.saveAll(Arrays.asList(camp1, camp2));
 		
-		Telesena tel1 = new Telesena(null, "0001", 250, 100, camp1);
+		Produto tel1 = new Telesena(null, "0001", 250, 100, camp1);
+		Produto ins1 = new Insumo(null, 15, "Urna Telesena");
 		
-		telesenaRepository.saveAll(Arrays.asList(tel1));
+		produtoRepository.saveAll(Arrays.asList(tel1, ins1));
 		
 		Estado est1 = new Estado(null, "Pernambuco");
 		Estado est2 = new Estado(null, "Paraíba");
@@ -115,7 +123,15 @@ public class PdvTccApplication implements CommandLineRunner{
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, ins1, 2, 500);
+		ItemPedido ip2 = new ItemPedido(ped1, tel1, 1, 15);
 		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		
+		tel1.getItens().addAll(Arrays.asList(ip1));
+		ins1.getItens().addAll(Arrays.asList(ip1));
+		
+		itemPrdidoRepository.saveAll(Arrays.asList(ip1, ip2));
 		
 	}
 	
