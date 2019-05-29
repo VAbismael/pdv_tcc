@@ -3,10 +3,12 @@ package com.herby.pdv_tcc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.herby.pdv_tcc.domain.Categoria;
 import com.herby.pdv_tcc.repositories.CategoriaRepository;
+import com.herby.pdv_tcc.services.exceptions.DataIntegrityException;
 import com.herby.pdv_tcc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -32,4 +34,13 @@ public class CategoriaService {
 		
 	}
 	
+	public void delete(Integer id) {		
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}	
+	}
 }
