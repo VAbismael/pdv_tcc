@@ -8,7 +8,6 @@ public class Insumo extends Produto{
 	
 	private String descricao;
 	
-	
 	public Insumo() {
 		
 	}
@@ -27,6 +26,7 @@ public class Insumo extends Produto{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 	
 
 }

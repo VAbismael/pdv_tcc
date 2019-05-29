@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +29,14 @@ public abstract class Produto implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private double preco;
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "PRODUTO_CATEGORIA",
+			joinColumns = @JoinColumn(name = "produto_id"),
+			inverseJoinColumns = @JoinColumn(name = "categoria_id")
+	)
+	private List<Categoria> categorias = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
@@ -66,6 +77,17 @@ public abstract class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
+
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+	
 	public Set<ItemPedido> getItens() {
 		return itens;
 	}
@@ -73,6 +95,7 @@ public abstract class Produto implements Serializable{
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
 	}
+	
 
 	@Override
 	public int hashCode() {

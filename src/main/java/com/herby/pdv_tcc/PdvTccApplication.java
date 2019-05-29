@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.herby.pdv_tcc.domain.Campanha;
+import com.herby.pdv_tcc.domain.Categoria;
 import com.herby.pdv_tcc.domain.Cidade;
 import com.herby.pdv_tcc.domain.Cliente;
 import com.herby.pdv_tcc.domain.Endereco;
@@ -23,6 +24,7 @@ import com.herby.pdv_tcc.domain.Telesena;
 import com.herby.pdv_tcc.domain.enums.EstadoPagamento;
 import com.herby.pdv_tcc.domain.enums.TipoCliente;
 import com.herby.pdv_tcc.repositories.CampanhaRepository;
+import com.herby.pdv_tcc.repositories.CategoriaRepository;
 import com.herby.pdv_tcc.repositories.CidadeRepository;
 import com.herby.pdv_tcc.repositories.ClienteRepository;
 import com.herby.pdv_tcc.repositories.EnderecoRepository;
@@ -34,6 +36,9 @@ import com.herby.pdv_tcc.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class PdvTccApplication implements CommandLineRunner{
+	
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 	
 	@Autowired
 	private CampanhaRepository campanhaRepository;
@@ -70,14 +75,21 @@ public class PdvTccApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		
+		Categoria cat1 = new Categoria(null, "Telesena");
+		Categoria cat2 = new Categoria(null, "Banner");
+			
 		Campanha camp1 = new Campanha(null, "Ano Novo");
 		Campanha camp2 = new Campanha(null, "Carnaval");
-		
-		campanhaRepository.saveAll(Arrays.asList(camp1, camp2));
-		
+			
 		Produto tel1 = new Telesena(null, "0001", 250, 100, camp1);
 		Produto ins1 = new Insumo(null, 15, "Urna Telesena");
 		
+		cat1.getProdutos().addAll(Arrays.asList(tel1));		
+		ins1.getCategorias().addAll(Arrays.asList(cat1));
+		
+		
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));		
+		campanhaRepository.saveAll(Arrays.asList(camp1, camp2));				
 		produtoRepository.saveAll(Arrays.asList(tel1, ins1));
 		
 		Estado est1 = new Estado(null, "Pernambuco");

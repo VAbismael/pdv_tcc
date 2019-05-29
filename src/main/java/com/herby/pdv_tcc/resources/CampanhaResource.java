@@ -18,7 +18,7 @@ public class CampanhaResource {
 	private CampanhaService service;
 	
 	@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Campanha> find(@PathVariable Integer id) {
 		Campanha obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 
