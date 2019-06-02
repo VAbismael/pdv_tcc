@@ -77,7 +77,13 @@ public class PdvTccApplication implements CommandLineRunner{
 		
 		Categoria cat1 = new Categoria(null, "Telesena");
 		Categoria cat2 = new Categoria(null, "Banner");
-			
+		Categoria cat3 = new Categoria(null, "Teste1");
+		Categoria cat4 = new Categoria(null, "Teste2");
+		Categoria cat5 = new Categoria(null, "Teste3");
+		Categoria cat6 = new Categoria(null, "Teste4");
+		Categoria cat7 = new Categoria(null, "Teste5");
+		Categoria cat8 = new Categoria(null, "Teste6");
+		
 		Campanha camp1 = new Campanha(null, "Ano Novo");
 		Campanha camp2 = new Campanha(null, "Carnaval");
 			
@@ -88,7 +94,7 @@ public class PdvTccApplication implements CommandLineRunner{
 		ins1.getCategorias().addAll(Arrays.asList(cat1));
 		
 		
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));		
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8));		
 		campanhaRepository.saveAll(Arrays.asList(camp1, camp2));				
 		produtoRepository.saveAll(Arrays.asList(tel1, ins1));
 		
