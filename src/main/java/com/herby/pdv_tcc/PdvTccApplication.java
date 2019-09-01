@@ -75,28 +75,39 @@ public class PdvTccApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		
+		//objetos categorias
 		Categoria cat1 = new Categoria(null, "Telesena");
 		Categoria cat2 = new Categoria(null, "Banner");
-		Categoria cat3 = new Categoria(null, "Teste1");
+		Categoria cat3 = new Categoria(null, "Urnas");
 		Categoria cat4 = new Categoria(null, "Teste2");
 		Categoria cat5 = new Categoria(null, "Teste3");
 		Categoria cat6 = new Categoria(null, "Teste4");
 		Categoria cat7 = new Categoria(null, "Teste5");
 		Categoria cat8 = new Categoria(null, "Teste6");
 		
+		//objetos campanhas
 		Campanha camp1 = new Campanha(null, "Ano Novo");
 		Campanha camp2 = new Campanha(null, "Carnaval");
 			
+		//Objetos produtos
 		Produto tel1 = new Telesena(null, "0001", 250, 100, camp1);
+		Produto tel2 = new Telesena(null, "0001", 250, 100, camp2);
 		Produto ins1 = new Insumo(null, 15, "Urna Telesena");
+		Produto ins2 = new Insumo(null, 20.5, "Banner Carnaval");
 		
-		cat1.getProdutos().addAll(Arrays.asList(tel1));		
-		ins1.getCategorias().addAll(Arrays.asList(cat1));
+		//adicionando produtos nas categorias
+		cat1.getProdutos().addAll(Arrays.asList(tel1, tel2));
+		cat2.getProdutos().addAll(Arrays.asList(ins2));
+		cat3.getProdutos().addAll(Arrays.asList(ins1));
+		tel1.getCategorias().addAll(Arrays.asList(cat1));
+		tel2.getCategorias().addAll(Arrays.asList(cat1));
+		ins1.getCategorias().addAll(Arrays.asList(cat3));
+		ins2.getCategorias().addAll(Arrays.asList(cat2));
 		
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8));		
 		campanhaRepository.saveAll(Arrays.asList(camp1, camp2));				
-		produtoRepository.saveAll(Arrays.asList(tel1, ins1));
+		produtoRepository.saveAll(Arrays.asList(tel1, tel2, ins1, ins2));
 		
 		Estado est1 = new Estado(null, "Pernambuco");
 		Estado est2 = new Estado(null, "Paraíba");
