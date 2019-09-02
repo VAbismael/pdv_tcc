@@ -123,7 +123,7 @@ public class PdvTccApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3, c4));
 		
-		Cliente cli1 = new Cliente(null, TipoCliente.PESSOAFISICA, "0001M", "000.000.000-25", "herby@harby.com");
+		Cliente cli1 = new Cliente(null, TipoCliente.PESSOAFISICA, "0001M", "000.000.000-25", "loteriacaHarby","herby@harby.com");
 		
 		cli1.getTelefones().addAll(Arrays.asList("986061647", "74616089"));
 		

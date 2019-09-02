@@ -25,7 +25,7 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer tipo;
-	private String codigo, cnpjOuCpf, email;
+	private String codigo, cnpjOuCpf, razaoSocial,email;
 	
 	//Associação 1 para *
 	@OneToMany(mappedBy = "cliente")	
@@ -43,12 +43,13 @@ public class Cliente implements Serializable{
 		
 	}
 	
-	public Cliente(Integer id, TipoCliente tipo, String codigo, String cnpjOuCpf, String email) {
+	public Cliente(Integer id, TipoCliente tipo, String codigo, String cnpjOuCpf, String razaoSocial,String email) {
 		super();
 		this.id = id;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null)? null : tipo.getCod();
 		this.codigo = codigo;
 		this.cnpjOuCpf = cnpjOuCpf;
+		this.razaoSocial = razaoSocial;
 		this.email = email;
 	}
 
@@ -85,7 +86,15 @@ public class Cliente implements Serializable{
 	public void setCnpjOuCpf(String cnpjOuCpf) {
 		this.cnpjOuCpf = cnpjOuCpf;
 	}
+	
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
 
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
