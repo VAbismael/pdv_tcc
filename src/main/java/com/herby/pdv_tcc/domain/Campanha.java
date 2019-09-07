@@ -17,7 +17,7 @@ public class Campanha implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String descricao;
 	
 	//Associação 1 para *	
 	@OneToMany(mappedBy = "campanha")
@@ -28,10 +28,10 @@ public class Campanha implements Serializable{
 	}
 
 
-	public Campanha(Integer id, String nome) {
+	public Campanha(Integer id, String descricao) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.descricao = descricao;
 	}
 
 
@@ -45,13 +45,13 @@ public class Campanha implements Serializable{
 	}
 
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public List<Telesena> getTelesenas() {
