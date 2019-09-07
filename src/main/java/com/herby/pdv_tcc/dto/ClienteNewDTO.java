@@ -2,14 +2,25 @@ package com.herby.pdv_tcc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.herby.pdv_tcc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	// dados do cliente
 	private Integer tipo;
+	
+	@NotEmpty(message="Preencheimento obrigatório")
 	private String codigo, cnpjOuCpf, razaoSocial, email;
 	
 	// dados do endereco
+	@NotEmpty(message="Preencheimento obrigatório")
 	private String lugradouro, numero, complemento, bairro, cep;
 	
 	private String telefone1, telefone2;
@@ -31,7 +42,8 @@ public class ClienteNewDTO implements Serializable{
 		this.tipo = tipo;
 	}
 
-
+		
+	@Length(min=5, max=10, message="O tamanho dever ser entre 5 e 10 caracteres")
 	public String getCodigo() {
 		return codigo;
 	}
@@ -41,11 +53,10 @@ public class ClienteNewDTO implements Serializable{
 		this.codigo = codigo;
 	}
 
-
+	
 	public String getCnpjOuCpf() {
 		return cnpjOuCpf;
 	}
-
 
 	public void setCnpjOuCpf(String cnpjOuCpf) {
 		this.cnpjOuCpf = cnpjOuCpf;
@@ -61,7 +72,8 @@ public class ClienteNewDTO implements Serializable{
 		this.razaoSocial = razaoSocial;
 	}
 
-
+	
+	@Email(message="Email inválido")
 	public String getEmail() {
 		return email;
 	}
