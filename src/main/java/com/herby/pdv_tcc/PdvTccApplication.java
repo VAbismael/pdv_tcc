@@ -129,7 +129,6 @@ public class PdvTccApplication implements CommandLineRunner{
 		
 		Endereco end1 = new Endereco(null, "Rua 115", "56", "casa", "Jardim Paulista", "53470-110", cli1, c2);
 		Endereco end2 = new Endereco(null, "Rua União Soviética", "620", "Apt.: 102", "Pau Amarelo", "53433-070", cli1, c2);
-		
 		cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
 		
 		clienteRepository.saveAll(Arrays.asList(cli1));		
